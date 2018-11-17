@@ -1,2 +1,2 @@
-#Mini Project - CMPUT 466
+# Mini Project - CMPUT 466
 
