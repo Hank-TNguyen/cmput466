@@ -1,0 +1,12 @@
+These are "Getting Started" date -> simple
+
+https://www.kaggle.com/c/titanic/data
+features are properties of a passenger on a trip: survival, pclass, sex, age, etc. as described in the link. 
+
+https://www.kaggle.com/c/digit-recognizer
+mnist data - images of digits 28 x 28 from 0 to 9. can use neural network with a few layers.
+e.g. lenet https://www.pyimagesearch.com/2016/08/01/lenet-convolutional-neural-network-in-python/
+I have already implemented this in CMPUT 328. Recommend this one. 
+
+https://www.kaggle.com/anshg98/walmart-sales#Train.csv
+I mentioned this, slightly different but easier. Walmart sales data with a few features. 
