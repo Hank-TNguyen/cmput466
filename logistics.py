@@ -6,7 +6,7 @@ import numpy as np
 
 
 def logistics(Xtrain, ytrain, Xtest):
-    clf = LogisticRegression(random_state=0, solver='sag', multi_class='multinomial', max_iter=1000)
+    clf = LogisticRegression(random_state=0, solver='sag', multi_class='multinomial', max_iter=100)
     clf.fit(Xtrain, ytrain)
     return clf.predict(Xtest)
 
@@ -18,10 +18,10 @@ if __name__ == '__main__':
     for split in splitdata(X, y, 8):
         Xtrain, ytrain = split[0]
         Xtest, ytest = split[1]
-        print("Running neural network on {} training samples and {} test samples"
+        print("Running logistics regression on {} training samples and {} test samples"
               .format(len(ytrain), len(ytest)))
         ypredict = logistics(Xtrain, ytrain, Xtest)
-        correct = np.count_nonzero(np.subtract(ypredict, ytest))
-        result.append(correct / len(ypredict))
-        print(correct / len(ypredict))
+        incorrect = np.count_nonzero(np.subtract(ypredict, ytest))
+        result.append(1 - incorrect / len(ypredict))
+        print(1 - incorrect / len(ypredict))
     print(result)

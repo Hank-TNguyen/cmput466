@@ -21,7 +21,7 @@ if __name__ == '__main__':
         print("Running K nearest neighbors on {} training samples and {} test samples"
               .format(len(ytrain), len(ytest)))
         ypredict = knn(Xtrain, ytrain, Xtest)
-        correct = np.count_nonzero(np.subtract(ypredict, ytest))
-        result.append(correct / len(ypredict))
-        print(correct / len(ypredict))
+        incorrect = np.count_nonzero(np.subtract(ypredict, ytest))
+        result.append(1- incorrect / len(ypredict))
+        print(1 - incorrect / len(ypredict))
     print(result)
