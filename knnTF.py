@@ -40,7 +40,7 @@ def knnTF(x_train, y_train, x_test):
     return y_test
 
 if __name__ == '__main__':
-    X,y = loaddata(8000)
+    X,y = loaddata()
     print("Finish loading {} data points ==================".format(len(y)))
     result = []
     for split in splitdata(X, y, 8):

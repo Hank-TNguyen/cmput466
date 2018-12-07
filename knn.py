@@ -3,16 +3,22 @@
 from loaddata import loaddata, splitdata
 from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
+import time
 
 
 def knn(Xtrain,ytrain,Xtest):
+    start = time.time()
     neigh = KNeighborsClassifier(n_neighbors=5)
     neigh.fit(Xtrain, ytrain)
-    return neigh.predict(Xtest)
-
+    train = time.time() - start
+    start = time.time()
+    result = neigh.predict(Xtest)
+    predict = time.time() - start
+    print('{}\t{}'.format(train, predict))
+    return result
 
 if __name__ == '__main__':
-    X,y = loaddata(8000)
+    X,y = loaddata()
     print("Finish loading {} data points ==================".format(len(y)))
     result = []
     for split in splitdata(X, y, 8):
@@ -23,5 +29,5 @@ if __name__ == '__main__':
         ypredict = knn(Xtrain, ytrain, Xtest)
         incorrect = np.count_nonzero(np.subtract(ypredict, ytest))
         result.append(1- incorrect / len(ypredict))
-        print(1 - incorrect / len(ypredict))
-    print(result)
+    print('Result')
+    for r in result: print(r)

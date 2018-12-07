@@ -3,15 +3,25 @@
 from loaddata import loaddata, splitdata
 from sklearn.neural_network import MLPClassifier
 import numpy as np
+import time
 
 def neuralnet(Xtrain, ytrain, Xtest):
-    clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
+    Xtrain = np.divide(Xtrain, 255)
+    Xtest = np.divide(Xtest, 255)
+    start = time.time()
+    clf = MLPClassifier(hidden_layer_sizes=(100, 100), max_iter=400, alpha=1e-4,
+                        solver='sgd', tol=1e-4, random_state=1)
     clf.fit(Xtrain, ytrain)
-    return clf.predict(Xtest)
+    train = time.time() - start
+    start = time.time()
+    result = clf.predict(Xtest)
+    predict = time.time() - start
+    print('{}\t{}'.format(train, predict))
+    return result
 
 if __name__ == '__main__':
     X,y = loaddata()
-    print("Finish loading data ==================")
+    print("Finish loading {} data points ==================".format(len(y)))
     result = []
     for split in splitdata(X, y, 8):
         Xtrain, ytrain = split[0]
@@ -21,5 +31,5 @@ if __name__ == '__main__':
         ypredict = neuralnet(Xtrain, ytrain, Xtest)
         incorrect = np.count_nonzero(np.subtract(ypredict, ytest))
         result.append(1 - incorrect / len(ypredict))
-        print(1 - incorrect / len(ypredict))
-    print(result)
+    print('Result')
+    for r in result:print(r)

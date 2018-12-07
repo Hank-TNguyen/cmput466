@@ -2,8 +2,13 @@ import numpy as np
 
 def loaddata(numrows=-1):
     dataset = np.genfromtxt('train.csv', delimiter=',',skip_header=1)
-    X = dataset[:numrows,1:]
-    y = dataset[:numrows,0]
+    if numrows == -1:
+        X = dataset[:,1:]
+        y = dataset[:,0]
+    else:
+        randindices = np.random.choice(dataset.shape[0], numrows, replace=False)
+        X = dataset[randindices,1:]
+        y = dataset[randindices,0]
     return X,y
 
 def splitdata(X,y,k):
